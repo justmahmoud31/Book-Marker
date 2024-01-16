@@ -28,7 +28,7 @@ if(localStorage.getItem("bookmarklist")) {
         description:sitedes.value
     }
     if(print.description==""){
-      print.description="----";
+      print.description="---";
     }
     if(print.Name==""||print.url==""){
        displayerror()
@@ -90,15 +90,15 @@ function visititem(index){
 
 }
 var nRegex = /^\w{3,}(\s+\w+)*$/;
-var Uegex = /^(https?:\/\/)?(w{3}\.)?\w+\.\w{2,}\/?(:\d{2,5})?(\/\w+)*$/;
+// var Uegex = /^(https?:\/\/)?(w{3}\.)?\w+\.\w{2,}\/?(:\d{2,5})?(\/\w+)*$/;
 
 siteName.addEventListener("input", function () {
   validate(siteName, nRegex);
 });
 
-siteurl.addEventListener("input", function () {
-  validate(siteurl, Uegex);
-});
+// siteurl.addEventListener("input", function () {
+//   validate(siteurl, Uegex);
+// });
 
 function validate(element, regex) {
   var testRegex = regex;
