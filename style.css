@@ -2,19 +2,21 @@
     box-sizing: border-box;
     margin-top: 0;
 }
+
 .container {
-    background-color: #333;
+    /* background-color: #333; */
     margin-top:0;
     border-radius: 10px;
     color: white;
     position: relative;
-    background: rgb(114,193,199);
-    background: linear-gradient(114deg, rgba(114,193,199,1) 0%, rgba(132,69,252,1) 50%, rgba(222,103,228,1) 100%);
+    background: rgb(2,0,36);
+    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(131,13,191,1) 61%, rgba(190,123,243,1) 100%);
+
 }
 h1 {
     font-weight: bolder;
     font-family: 'Kanit', sans-serif;
-    color: white;
+    
     margin-top: 10px;
 }
 i {
@@ -22,7 +24,7 @@ i {
 }
 h2 {
     font-weight: 700;
-    color: white;
+    /* color: white; */
     padding: 10px;
     border-radius: 10px;
 

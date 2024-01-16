@@ -1,5 +1,6 @@
 var siteName = document.getElementById("sitename");
 var siteurl = document.getElementById("siteurl");
+var sitedes = document.getElementById("sitedes");
 var submitbtn = document.getElementById('submitbtn');
 var errorbox = document.getElementById('errormessage');
 // var tablecontent = document.getElementById('tableContent');
@@ -23,7 +24,11 @@ if(localStorage.getItem("bookmarklist")) {
  function takeinput(){
     var print={
         Name:captial(siteName.value),
-        url:siteurl.value
+        url:siteurl.value,
+        description:sitedes.value
+    }
+    if(print.description==""){
+      print.description="No comment";
     }
     if(print.Name==""||print.url==""){
        displayerror()
@@ -39,10 +44,12 @@ if(localStorage.getItem("bookmarklist")) {
  function clear(){
     siteName.value="";
     siteurl.value="";
+    sitedes.value="";
  }
  function cancel(){
     siteName.value="";
     siteurl.value="";
+    sitedes.value="";
     alert("Canceled");
 }
 function deleteitem(index){
@@ -57,6 +64,7 @@ function display(){
         <tr>
             <td>${i+1}</td>
             <td>${bookmarks[i].Name}</td>
+            <td>${bookmarks[i].description}</td>
             <td><button onclick="visititem(${i})" class="btn btn-info"><i class="fa-solid fa-arrow-up-right-from-square" style="color: #ededed;"></i></button></td>
             <td><button onclick="deleteitem(${i})" class="btn btn-danger"><i class="fa-solid fa-trash" style="color: #e2e4e9;"></i></button></td>
         </tr>
@@ -122,3 +130,13 @@ document.addEventListener("click", function (e) {
     closeModal();
   }
 });
+let color= document.getElementById("bdy")
+ function darkcolor() {
+ color.style.backgroundColor="#333";
+alert("Dark")
+
+ }
+ function lightcolor() {
+    color.style.background="linear-gradient(114deg, rgba(114,193,199,1) 0%, rgba(132,69,252,1) 50%, rgba(222,103,228,1) 100%)";
+  
+}
