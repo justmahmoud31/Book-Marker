@@ -84,8 +84,8 @@ if(visitbtn){
 function visititem(index){
   
       open(bookmarks[index].url);
-      console.log(bookmarks[index].url);
-      open(`https://${bookmarks[index].siteURL}`);
+      // console.log(bookmarks[index].url);
+      // open(`https://${bookmarks[index].siteURL}`);
 
 
 }
