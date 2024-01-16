@@ -14,9 +14,13 @@
 </head>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="bdy">
         
-        <div class="head m-4 d-flex justify-content-center align-items-center"><h1>Mark ME <i class="fa-solid fa-bookmark"></i></h1></div>
+        <div class="head m-4  ">
+            <h1 class="d-flex justify-content-center align-items-center">Mark ME</h1> 
+        <!-- <button onclick="darkcolor()"  class="btn btn-lg  position-absolute end-0 mx-3"><i class="fa-solid fa-moon fa-lg" style="color: #ffffff;"></i></button>
+         <button onclick="lightcolor()" class="btn btn-lg"><i class="fa-solid fa-circle-half-stroke" style="color: #ffffff;"></i></button> -->
+    </div>
     <div class="my-4 d-flex justify-content-center align-items-center">
     <h2>Bookmark Your favorite Sites</h2>
     </div>
@@ -26,8 +30,12 @@
             <input placeholder="Website Name" class="form-control" id="sitename">
         </div>
         <div class="inptsiteurl w-100 d-flex justify-content-center flex-column">
-            <label class="my-4"> <i class="fa-solid fa-link"></i> URL Link </label>
+            <label class="my-4"> <i class="fa-solid fa-link "></i> URL Link </label>
             <input placeholder="Website URL" class="form-control" id="siteurl">
+        </div>
+        <div class="inptsiteurl w-100 d-flex justify-content-center flex-column">
+            <label class="my-4"><i class="fa-solid fa-comment"></i> Description</label>
+            <input placeholder="Website Description" class="form-control" id="sitedes">
         </div>
         <div class=" my-4 d-flex justify-content-center align-items-center">
             <button onclick="takeinput()" class="btn  btn-dark btn-lg" id="sumbitbtn">Submit</button>
@@ -37,8 +45,9 @@
     <div class="displaydata">
     <table class="table mt-4 text-center bg-light">
      <thead>
-        <th>INDEX</th>
+        <th>#</th>
         <th>Website Name</th>
+        <th>Website Description</th>
         <th>Visit</th>
         <th>Delete</th>
      </thead>
