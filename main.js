@@ -28,7 +28,7 @@ if(localStorage.getItem("bookmarklist")) {
         description:sitedes.value
     }
     if(print.description==""){
-      print.description="No comment";
+      print.description="----";
     }
     if(print.Name==""||print.url==""){
        displayerror()
