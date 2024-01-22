@@ -113,7 +113,7 @@ function searchitem(){
           <td>${bookmarks[i].Name.replace(srch,'<span style="background-color:#333; color:white;">'+srch+'</span>')}</td>
           <td>${bookmarks[i].description}</td>
           <td><button onclick="visititem(${i})" class="btn btn-info"><i class="fa-solid fa-arrow-up-right-from-square" style="color: #ededed;"></i></button></td>
-              <td><button onclick="updateitem(${i})" class="btn btn-secondary"><i class="fa-solid fa-pen" style="color: #f5f5f5;"></i></button></td>
+         <td><button onclick="updateitem(${i})" class="btn btn-secondary"><i class="fa-solid fa-pen" style="color: #f5f5f5;"></i></button></td>
           <td><button onclick="deleteitem(${i})" class="btn btn-danger"><i class="fa-solid fa-trash" style="color: #e2e4e9;"></i></button></td>
            </tr>
           `
