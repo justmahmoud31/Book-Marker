@@ -38,17 +38,21 @@
             <input placeholder="Website Description" class="form-control" id="sitedes">
         </div>
         <div class=" my-4 d-flex justify-content-center align-items-center">
-            <button onclick="takeinput()" class="btn  btn-dark btn-lg" id="sumbitbtn">Submit</button>
+            <button onclick="takeinput()" class="btn  btn-dark btn-lg" id="sumbitbtn">Add Link</button>
             <button onclick="cancel()" class="btn  btn-danger btn-lg m-3">Cancel</button>
         </div>
     </div>
+    <div class="d-flex justify-content-evenly">
+        <input placeholder="Search..." id="srchinpt" class="form-control w-50 " onkeyup="searchitem()">
+    </div>
     <div class="displaydata">
-    <table class="table mt-4 text-center bg-light">
+    <table class="table mt-4 text-center">
      <thead>
         <th>#</th>
         <th>Website Name</th>
         <th>Website Description</th>
         <th>Visit</th>
+        <th>Update</th>
         <th>Delete</th>
      </thead>
      <tbody id="tableContent">

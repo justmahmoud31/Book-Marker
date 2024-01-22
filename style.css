@@ -46,9 +46,11 @@ label {
     top: 30%;
     left: 25%;
     display: none;
+    border-radius: 20px;
 }
 tbody {
     font-weight: bold;
+   
 }
 .displaydata {
     margin-bottom: 20px;

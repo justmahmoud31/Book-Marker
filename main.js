@@ -3,7 +3,6 @@ var siteurl = document.getElementById("siteurl");
 var sitedes = document.getElementById("sitedes");
 var submitbtn = document.getElementById('submitbtn');
 var errorbox = document.getElementById('errormessage');
-// var tablecontent = document.getElementById('tableContent');
 var deletebtn;
 var visitbtn;
 var bookmarks = [];
@@ -50,7 +49,6 @@ if(localStorage.getItem("bookmarklist")) {
     siteName.value="";
     siteurl.value="";
     sitedes.value="";
-    alert("Canceled");
 }
 function deleteitem(index){
     bookmarks.splice(index,1)
@@ -64,8 +62,9 @@ function display(){
         <tr>
             <td>${i+1}</td>
             <td>${bookmarks[i].Name}</td>
-            <td>${bookmarks[i].description}</td>
+            <td>${bookmarks[i].description}</td> 
             <td><button onclick="visititem(${i})" class="btn btn-info"><i class="fa-solid fa-arrow-up-right-from-square" style="color: #ededed;"></i></button></td>
+            <td><button onclick="updateitem(${i})" class="btn btn-secondary"><i class="fa-solid fa-pen" style="color: #f5f5f5;"></i></button></td>
             <td><button onclick="deleteitem(${i})" class="btn btn-danger"><i class="fa-solid fa-trash" style="color: #e2e4e9;"></i></button></td>
         </tr>
         `
@@ -83,12 +82,44 @@ if(visitbtn){
 }
 function visititem(index){
   
-      open(bookmarks[index].url);
-      // console.log(bookmarks[index].url);
-      // open(`https://${bookmarks[index].siteURL}`);
+    open(bookmarks[index].url);
+      console.log(bookmarks[index].url);
+    // open(`https://${bookmarks[index].siteURL}`);
 
 
 }
+function updateitem(index){
+  // bookmarks[index].Name=siteName.value
+  // bookmarks[index].url=siteurl.value
+  // bookmarks[index].description=sitedes.value
+  // if(bookmarks[index].description.value==""){
+  //  bookmarks[index].description.value="---";
+  // }
+  takeinput()
+  deleteitem(index)
+  localStorage.setItem('bookmarklist',JSON.stringify(bookmarks))
+  display()
+  clear()
+}
+function searchitem(){
+  var srch=document.getElementById('srchinpt').value
+  var box=``
+  for(var i=0;i<bookmarks.length;i++){
+      if(bookmarks[i].Name.toLowerCase().includes(srch.toLowerCase())){
+        
+          box+=`
+          <tr>
+          <td>${i+1}</td>
+          <td>${bookmarks[i].Name.replace(srch,'<span style="background-color:#333; color:white;">'+srch+'</span>')}</td>
+          <td>${bookmarks[i].description}</td>
+          <td><button onclick="visititem(${i})" class="btn btn-info"><i class="fa-solid fa-arrow-up-right-from-square" style="color: #ededed;"></i></button></td>
+          <td><button onclick="deleteitem(${i})" class="btn btn-danger"><i class="fa-solid fa-trash" style="color: #e2e4e9;"></i></button></td>
+           </tr>
+          `
+      }
+  }
+  document.getElementById('tableContent').innerHTML=box
+  }
 var nRegex = /^\w{3,}(\s+\w+)*$/;
 // var Uegex = /^(https?:\/\/)?(w{3}\.)?\w+\.\w{2,}\/?(:\d{2,5})?(\/\w+)*$/;
 
