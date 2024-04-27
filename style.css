@@ -9,8 +9,8 @@
     border-radius: 10px;
     color: white;
     position: relative;
-    background: rgb(2,0,36);
-    background: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(131,13,191,1) 61%, rgba(190,123,243,1) 100%);
+    background: rgb(3,6,55);
+    background: radial-gradient(circle, rgba(3,6,55,1) 0%, rgba(60,7,83,1) 89%);
 
 }
 h1 {
