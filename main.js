@@ -6,20 +6,25 @@ var errorbox = document.getElementById("errormessage");
 var deletebtn;
 var visitbtn;
 var bookmarks = [];
+
 function ok() {
   errorbox.style.display = "none";
 }
+
 function displayerror() {
   errorbox.style.display = "inline-block";
 }
+
 function captial(str) {
   let strArr = str.split("");
   strArr[0] = strArr[0].toUpperCase();
   return strArr.join("");
 }
+
 if (localStorage.getItem("bookmarklist")) {
   bookmarks = JSON.parse(localStorage.getItem("bookmarklist"));
 }
+
 function takeinput() {
   var print = {
     Name: captial(siteName.value),
@@ -39,16 +44,19 @@ function takeinput() {
   display();
   clear();
 }
+
 function clear() {
   siteName.value = "";
   siteurl.value = "";
   sitedes.value = "";
 }
+
 function cancel() {
   siteName.value = "";
   siteurl.value = "";
   sitedes.value = "";
 }
+
 function deleteitem(index) {
   swal({
     title: "Are you sure?",
@@ -69,23 +77,25 @@ function deleteitem(index) {
     }
   });
 }
+
 function display() {
   var all = ``;
   for (var i = 0; i < bookmarks.length; i++) {
     all += `
-        <tr>
-            <td>${i + 1}</td>
-            <td>${bookmarks[i].Name}</td>
+        <tr>  
+            <td><a id="link-visit" onclick="visititem(${i})" >${bookmarks[i].Name}<a/></td>
             <td>${bookmarks[i].description}</td> 
-            <td><button onclick="visititem(${i})" class="btn btn-info"><i class="fa-solid fa-arrow-up-right-from-square" style="color: #ededed;"></i></button></td>
-            <td><button onclick="updateitem(${i})" class="btn btn-secondary"><i class="fa-solid fa-pen" style="color: #f5f5f5;"></i></button></td>
-            <td><button onclick="deleteitem(${i})" class="btn btn-danger"><i class="fa-solid fa-trash" style="color: #e2e4e9;"></i></button></td>
+            <td><button onclick="updateitem(${i})" class="btn btn-sm btn-secondary"><i class="fa-solid fa-pen" style="color: #f5f5f5;"></i></button></td>
+            <td><button onclick="copyitem(${i})" class="btn btn-sm  btn-primary"><i class="fa-solid fa-copy" style="color: #ffffff;"></i></button></td>
+            <td><button onclick="deleteitem(${i})" class="btn btn-sm  btn-danger"><i class="fa-solid fa-trash" style="color: #e2e4e9;"></i></button></td>
         </tr>
         `;
   }
   document.getElementById("tableContent").innerHTML = all;
 }
+//  <td><button onclick="visititem(${i})" class="btn btn-info"><i class="fa-solid fa-arrow-up-right-from-square" style="color: #ededed;"></i></button></td>
 display();
+
 visitbtn = document.getElementsByClassName(".btn.btn-info");
 if (visitbtn) {
   for (var i = 0; i < visitbtn.length; i++) {
@@ -94,61 +104,76 @@ if (visitbtn) {
     });
   }
 }
+
 function visititem(index) {
   open(bookmarks[index].url);
 }
+
 function updateitem(index) {
   const bookmark = bookmarks[index];
-  swal({
+
+  Swal.fire({
     title: "Update Item",
-    content: {
-      element: "div",
-      attributes: {
-        innerHTML: `
-          <div class="inpts">
-            <div class="inptsitename w-100 d-flex justify-content-center flex-column">
-              <label class="my-4"> <i class="fa-solid fa-book"></i> Site Name </label>
-              <input placeholder="Website Name" class="form-control" id="edit-sitename" value="${bookmark.Name}">
-            </div>
-            <div class="inptsiteurl w-100 d-flex justify-content-center flex-column">
-              <label class="my-4"> <i class="fa-solid fa-link"></i> URL Link </label>
-              <input placeholder="Website URL" class="form-control" id="edit-siteurl" value="${bookmark.url}">
-            </div>
-            <div class="inptsiteurl w-100 d-flex justify-content-center flex-column">
-              <label class="my-4"><i class="fa-solid fa-comment"></i> Description</label>
-              <input placeholder="Website Description" class="form-control" id="edit-sitedes" value="${bookmark.description}">
-            </div>
-          </div>
-        `,
-      },
-    },
-    buttons: {
-      cancel: true,
-      confirm: {
-        text: "Update",
-        value: "update",
-      },
-    },
-  }).then((value) => {
-    if (value === "update") {
+    html: `
+      <div class="inpts">
+        <div class="inptsitename w-100 d-flex justify-content-center flex-column">
+          <label class="my-4"> <i class="fa-solid fa-book"></i> Site Name </label>
+          <input placeholder="Website Name" class="form-control" id="edit-sitename" value="${bookmark.Name}">
+        </div>
+        <div class="inptsiteurl w-100 d-flex justify-content-center flex-column">
+          <label class="my-4"> <i class="fa-solid fa-link"></i> URL Link </label>
+          <input placeholder="Website URL" class="form-control" id="edit-siteurl" value="${bookmark.url}">
+        </div>
+        <div class="inptsiteurl w-100 d-flex justify-content-center flex-column">
+          <label class="my-4"><i class="fa-solid fa-comment"></i> Description</label>
+          <input placeholder="Website Description" class="form-control" id="edit-sitedes" value="${bookmark.description}">
+        </div>
+      </div>
+    `,
+    showCancelButton: true,
+    confirmButtonText: "Update",
+    preConfirm: () => {
       const updatedName = document.getElementById("edit-sitename").value;
       const updatedUrl = document.getElementById("edit-siteurl").value;
       const updatedDescription = document.getElementById("edit-sitedes").value;
 
-      if (updatedName === "" || updatedUrl === "") {
-        displayerror();
-      } else {
-        bookmarks[index] = {
-          Name: captial(updatedName),
-          url: updatedUrl,
-          description: updatedDescription === "" ? "---" : updatedDescription,
-        };
-        localStorage.setItem("bookmarklist", JSON.stringify(bookmarks));
-        swal("Updated!", "Your bookmark has been updated.", "success");
-        display();
+      if (!updatedName || !updatedUrl) {
+        Swal.showValidationMessage("Name and URL are required");
+        return false;
       }
+
+      return {
+        updatedName,
+        updatedUrl,
+        updatedDescription:
+          updatedDescription === "" ? "---" : updatedDescription,
+      };
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const { updatedName, updatedUrl, updatedDescription } = result.value;
+      bookmarks[index] = {
+        Name: captial(updatedName),
+        url: updatedUrl,
+        description: updatedDescription,
+      };
+      localStorage.setItem("bookmarklist", JSON.stringify(bookmarks));
+      Swal.fire("Updated!", "Your bookmark has been updated.", "success");
+      display();
     }
   });
+}
+
+function copyitem(index) {
+  const bookmarkUrl = bookmarks[index].url;
+  navigator.clipboard
+    .writeText(bookmarkUrl)
+    .then(() => {
+      swal("Copied!", "The URL has been copied to your clipboard.", "success");
+    })
+    .catch((err) => {
+      swal("Error", "Failed to copy the URL.", "error");
+    });
 }
 
 function searchitem() {
@@ -158,16 +183,15 @@ function searchitem() {
     if (bookmarks[i].Name.toLowerCase().includes(srch.toLowerCase())) {
       box += `
           <tr>
-          <td>${i + 1}</td>
-          <td>${bookmarks[i].Name.replace(
-            srch,
-            '<span style="background-color:#333; color:white;">' +
-              srch +
-              "</span>"
-          )}</td>
+          <td><a id="link-visit" onclick="visititem(${i})" >${bookmarks[
+        i
+      ].Name.replace(
+        srch,
+        '<span style="background-color:#333; color:white;">' + srch + "</span>"
+      )}<a/></td>
           <td>${bookmarks[i].description}</td>
-          <td><button onclick="visititem(${i})" class="btn btn-info"><i class="fa-solid fa-arrow-up-right-from-square" style="color: #ededed;"></i></button></td>
           <td><button onclick="updateitem(${i})" class="btn btn-secondary"><i class="fa-solid fa-pen" style="color: #f5f5f5;"></i></button></td>
+          <td><button onclick="copyitem(${i})" class="btn btn-primary"><i class="fa-solid fa-copy" style="color: #ffffff;"></i></button></td>
           <td><button onclick="deleteitem(${i})" class="btn btn-danger"><i class="fa-solid fa-trash" style="color: #e2e4e9;"></i></button></td>
            </tr>
           `;
@@ -175,6 +199,7 @@ function searchitem() {
   }
   document.getElementById("tableContent").innerHTML = box;
 }
+
 var nRegex = /^\w{3,}(\s+\w+)*$/;
 // var Uegex = /^(https?:\/\/)?(w{3}\.)?\w+\.\w{2,}\/?(:\d{2,5})?(\/\w+)*$/;
 
@@ -208,11 +233,14 @@ document.addEventListener("click", function (e) {
     closeModal();
   }
 });
+
 let color = document.getElementById("bdy");
+
 function darkcolor() {
   color.style.backgroundColor = "#333";
   alert("Dark");
 }
+
 function lightcolor() {
   color.style.background =
     "linear-gradient(114deg, rgba(114,193,199,1) 0%, rgba(132,69,252,1) 50%, rgba(222,103,228,1) 100%)";

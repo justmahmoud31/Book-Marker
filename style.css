@@ -6,6 +6,8 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url('./flag-palestine-wallpaper-preview.jpg');
+    font-family:Cascadia Code;
+    overflow-x: hidden;
 }
 .container {
     /* background-color: #333; */
@@ -16,7 +18,7 @@ body{
     /* background: rgb(3,6,55);
     background: radial-gradient(circle, rgba(3,6,55,1) 0%, rgba(60,7,83,1) 89%); */
     /* background-color: #7AA2E3; */
-    background-color: #333;
+    background-color: #0f0f0f7a;
 
 }
 h1 {
@@ -60,4 +62,20 @@ tbody {
 }
 .displaydata {
     margin-bottom: 20px;
+}
+#link-visit {
+    cursor: pointer;
+    color: #B197FC;
+    text-decoration: underline;
+    transition: ease-in-out .2s linear ;
+
+}
+#srchinpt{
+    width: 70%;
+}
+
+@media (max-width:700px) {
+    #srchinpt{
+        width: 90%;
+    }
 }
